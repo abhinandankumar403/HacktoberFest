@@ -18,7 +18,6 @@ Explore
 /
 Hacktoberfest-1
 Public
-forked from Joonsang1994/Hacktoberfest
 0
 0
 528
