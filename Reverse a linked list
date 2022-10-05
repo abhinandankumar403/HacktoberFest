@@ -1,64 +1,74 @@
+
 #include <iostream>
 using namespace std;
-struct node
-{
-           int data;
-           node *next;
+
+struct Node {
+	int data;
+	struct Node* next;
+	Node(int data)
+	{
+		this->data = data;
+		next = NULL;
+	}
 };
-node *addNode(node *start,int x)
-{
-           node *temp=new node;
-           temp->data=x;
-           temp->next=NULL;
-           if(start==NULL)
-                      return temp;
-           node *ptr;
-           ptr=start;
-           while(ptr->next!=NULL)
-           {
-                      ptr=ptr->next;
-           }
-           ptr->next=temp;
-           return start;
-}
-void printList(node *temp)
-{
-           while(temp!=NULL)
-           {
-                      cout<<temp->data<<" ";
-                      temp=temp->next;
-           }
-}
-node* point_to_first(node *start)
-{
-           node *p,*q;
-           node*ptr=new node;
-           p=start;
-           while(p->next!=NULL)
-           {
-                      q=p;
-                      p=p->next;
-           }
-           ptr->data=p->data;
-           ptr->next=start;
-           start=ptr;
-           q->next=NULL;
-           delete(p);
-           return start;
-}
+
+struct LinkedList {
+	Node* head;
+	LinkedList() { head = NULL; }
+
+
+	void reverse()
+	{
+		
+		Node* current = head;
+		Node *prev = NULL, *next = NULL;
+
+		while (current != NULL) {
+			
+			next = current->next;
+
+			
+			current->next = prev;
+
+			prev = current;
+			current = next;
+		}
+		head = prev;
+	}
+
+	void print()
+	{
+		struct Node* temp = head;
+		while (temp != NULL) {
+			cout << temp->data << " ";
+			temp = temp->next;
+		}
+	}
+
+	void push(int data)
+	{
+		Node* temp = new Node(data);
+		temp->next = head;
+		head = temp;
+	}
+};
+
 int main()
 {
-           node *sample=NULL;
-           sample=addNode(sample,10);
-           sample=addNode(sample,20);
-           sample=addNode(sample,30);
-           sample=addNode(sample,40);
-           sample=addNode(sample,50);
-           cout<<"List:";
-           printList(sample);
-           cout<<endl;
-           sample=point_to_first(sample);
-           cout<<"New List:";
-           printList(sample);
-           return 0;
+	
+	LinkedList ll;
+	ll.push(20);
+	ll.push(4);
+	ll.push(15);
+	ll.push(85);
+
+	cout << "Given linked list\n";
+	ll.print();
+
+	ll.reverse();
+
+	cout << "\nReversed Linked list \n";
+	ll.print();
+	return 0;
 }
+
